@@ -21,6 +21,10 @@ p {
   font-size: 16px;
 }
 
+textarea {
+  resize: none;
+}
+
 .reply {
   margin-left: 1rem;
 }
