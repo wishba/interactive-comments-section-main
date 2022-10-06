@@ -2,6 +2,7 @@ fetch('data.json')
   .then(res => res.json())
   .then(data => appendData(data))
 
+// retrieving data from json
 function appendData(data) {
   let commentsContainer = document.getElementById('comments')
 
@@ -39,4 +40,14 @@ function appendData(data) {
       }
     }
   }
+}
+
+// store data to localStorage
+function handleSubmit() {
+  event.preventDefault()
+  const commentObjIn = {
+    comment: document.getElementById('commentInput').value
+  }
+  const commentJSON = JSON.stringify(commentObjIn)
+  localStorage.setItem('key', commentJSON)
 }
