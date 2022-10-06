@@ -27,7 +27,6 @@ function appendData(data) {
       commentsContainer.appendChild(commentReply)
     } else {
       for (const dataReplies of dataComments.replies) {
-        console.log(dataReplies);
         let commentReply = document.createElement('div')
         commentReply.className = 'reply'
         commentReply.innerHTML = `
@@ -41,6 +40,12 @@ function appendData(data) {
     }
   }
 }
+
+// retrieving data from localStorage
+let storedValue = localStorage.getItem('1665065168579')
+let storedObj = JSON.parse(storedValue)
+console.log(storedObj);
+console.log(storedObj.comment);
 
 // store data to localStorage
 function handleSubmit() {
