@@ -45,9 +45,10 @@ function appendData(data) {
 // store data to localStorage
 function handleSubmit() {
   event.preventDefault()
+  let timeStamp = Date.now()
   const commentObjIn = {
     comment: document.getElementById('commentInput').value
   }
   const commentJSON = JSON.stringify(commentObjIn)
-  localStorage.setItem('key', commentJSON)
+  localStorage.setItem(timeStamp, commentJSON)
 }
