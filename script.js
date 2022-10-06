@@ -16,6 +16,7 @@ function appendData(data) {
     // comment replies
     if (dataComments.replies.length == 0) {
       let commentReply = document.createElement('div')
+      commentReply.className = 'reply'
       commentReply.innerHTML = `
         <p>empty</p>
       `
@@ -23,6 +24,7 @@ function appendData(data) {
     } else {
       for (const dataReplies of dataComments.replies) {
         let commentReply = document.createElement('div')
+        commentReply.className = 'reply'
         commentReply.innerHTML = `
           <p>${dataReplies.user.username}</p>
           <p>@${dataReplies.replyingTo}</p>
