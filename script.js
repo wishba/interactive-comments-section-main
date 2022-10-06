@@ -2,12 +2,26 @@ fetch('data.json')
   .then(res => res.json())
   .then(data => appendData(data))
 
-// retrieving data from json
 function appendData(data) {
   let commentsContainer = document.getElementById('comments')
 
+  // retrieving data from localStorage
+  for (let index = 0; index < localStorage.length; index++) {
+    let localStorageContainer = document.createElement('div')
+    const storageKey = localStorage.key(index)
+    let storageValue = localStorage.getItem(storageKey)
+    let storageValueObj = JSON.parse(storageValue)
+    localStorageContainer.innerHTML = `
+      <p>key: ${storageKey}</p>
+      <p>comment: ${storageValueObj.comment}</p>
+    `
+    commentsContainer.appendChild(localStorageContainer)
+  }
+
+  // retrieving data from json
   for (const dataComments of data.comments) {
-    //comments
+
+    // comments
     let comment = document.createElement('div')
     comment.innerHTML = `
       <p>${dataComments.user.username}</p>
@@ -39,17 +53,6 @@ function appendData(data) {
       }
     }
   }
-}
-
-// retrieving data from localStorage
-let storedValue = localStorage.getItem('1665065168579')
-let storedObj = JSON.parse(storedValue)
-for (let index = 0; index < localStorage.length; index++) {
-  const storageKey = localStorage.key(index)
-  console.log('key: ' + storageKey);
-  let storageValue = localStorage.getItem(storageKey)
-  let storageValueObj = JSON.parse(storageValue)
-  console.log('comment: ' + storageValueObj.comment);
 }
 
 // store data to localStorage
