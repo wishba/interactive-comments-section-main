@@ -6,6 +6,14 @@ function appendData(data) {
   let commentsContainer = document.getElementById('comments')
 
   for (const dataComments of data.comments) {
+    //comments
+    let comment = document.createElement('div')
+    comment.innerHTML = `
+      <p>${dataComments.user.username}</p>
+    `
+    commentsContainer.appendChild(comment)
+
+    // comment replies
     if (dataComments.replies.length == 0) {
       let commentReply = document.createElement('div')
       commentReply.innerHTML = `
@@ -22,6 +30,9 @@ function appendData(data) {
         commentsContainer.appendChild(commentReply)
       }
     }
+
+
+
 
 
     // console.log(comments.replies.length);
