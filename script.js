@@ -3,21 +3,32 @@ fetch('data.json')
   .then(data => appendData(data))
 
 function appendData(data) {
+  let commentsReplyContainer = document.getElementById('commentsReply')
   for (let index = 0; index < data.comments.length; index++) {
     const element = data.comments[index]
-    if (element.replies.length > 0) {
-      for (let i = 0; i < element.replies.length; i++) {
-        const e = element.replies[i]
-        console.log(e.replyingTo)
-        nameReply = e.replyingTo
-      }
+    console.log(element.replies.length);
+
+    if (element.replies.length == 0) {
+      console.log('empty');
+
+      let commentReply = document.createElement("div")
+      commentReply.innerHTML = 'empty'
+      commentsReplyContainer.appendChild(commentReply)
     } else {
-      console.log('empty')
+
+      for (let i = 0; i < element.replies.length; i++) {
+        const e = element.replies[i];
+        console.log('reply name');
+
+        let commentReply = document.createElement("div")
+        commentReply.innerHTML = 'reply name'
+        commentsReplyContainer.appendChild(commentReply)
+      }
     }
   }
 
+  let commentsContainer = document.getElementById('comments')
   for (const iterator of data.comments) {
-    let commentsContainer = document.getElementById('comments')
     let comment = document.createElement("div")
     comment.innerHTML = `
       <picture>
