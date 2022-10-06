@@ -44,8 +44,10 @@ function appendData(data) {
 // retrieving data from localStorage
 let storedValue = localStorage.getItem('1665065168579')
 let storedObj = JSON.parse(storedValue)
-console.log(storedObj);
-console.log(storedObj.comment);
+for (let i = 0; i < localStorage.length; i++) {
+  const storageKey = localStorage.key(i)
+  console.log(storageKey);
+}
 
 // store data to localStorage
 function handleSubmit() {
