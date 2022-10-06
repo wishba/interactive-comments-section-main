@@ -8,13 +8,17 @@ function appendData(data) {
   for (const dataComments of data.comments) {
     if (dataComments.replies.length == 0) {
       let commentReply = document.createElement('div')
-      commentReply.innerHTML = 'empty'
+      commentReply.innerHTML = `
+        <p>empty</p>
+      `
       commentsContainer.appendChild(commentReply)
     } else {
       for (const dataReplies of dataComments.replies) {
-        console.log('reply');
         let commentReply = document.createElement('div')
-        commentReply.innerHTML = 'reply'
+        commentReply.innerHTML = `
+          <p>${dataReplies.user.username}</p>
+          <p>@${dataReplies.replyingTo}</p>
+        `
         commentsContainer.appendChild(commentReply)
       }
     }
