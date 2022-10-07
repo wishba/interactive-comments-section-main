@@ -78,14 +78,14 @@ function appendData(data) {
     commentsContainer.appendChild(comment)
 
     // comment replies
-    if (dataComments.replies.length == 0) {
-      let commentReply = document.createElement('div')
-      commentReply.className = 'reply'
-      commentReply.innerHTML = `
-        <p>empty</p>
-      `
-      commentsContainer.appendChild(commentReply)
-    } else {
+    if (dataComments.replies.length > 0) {
+      //   let commentReply = document.createElement('div')
+      //   commentReply.className = 'reply'
+      //   commentReply.innerHTML = `
+      //     <p>empty</p>
+      //   `
+      //   commentsContainer.appendChild(commentReply)
+      // } else {
       for (const dataReplies of dataComments.replies) {
         let commentReply = document.createElement('div')
         commentReply.className = 'reply'
