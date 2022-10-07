@@ -88,13 +88,29 @@ async function handleSubmit() {
   const res = await fetch('data.json')
   const data = await res.json()
 
+  // data user
   let userName = data.currentUser.username
   let png = data.currentUser.image.png
   let webp = data.currentUser.image.webp
 
+  // live time
   let timeStamp = Date.now()
+  let objectDate = new Date();
+  let year = objectDate.getFullYear();
+  let month = objectDate.getMonth();
+  let day = objectDate.getDate();
+  let hour = objectDate.getHours();
+  let minute = objectDate.getMinutes();
+
   const commentObjIn = {
     content: document.getElementById('commentInput').value,
+    createdAt: {
+      'year': year,
+      'month': month,
+      'day': day,
+      'hour': hour,
+      'minute': minute
+    },
     score: 0,
     user: {
       'image': {
@@ -108,3 +124,33 @@ async function handleSubmit() {
   const commentJSON = JSON.stringify(commentObjIn)
   localStorage.setItem(timeStamp, commentJSON)
 }
+
+
+
+// let objectDate = new Date();
+
+// let minute = objectDate.getMinutes();
+// let hour = objectDate.getHours();
+// let day = objectDate.getDate();
+// let month = objectDate.getMonth();
+// let year = objectDate.getFullYear();
+
+// let storageMinute = 57
+// let storageHour = 18
+// let storageDay = 7
+// let storageMonth = 10
+// let storageYear = 2022
+
+// if (year - storageYear > 0) {
+//   console.log(year - storageYear + ' year ago');
+// } else if (month - storageMonth + 1 > 0) {
+//   console.log(month - storageMonth + 1 + ' month ago');
+// } else if (day - storageDay > 0) {
+//   console.log(day - storageDay + ' day ago');
+// } else if (hour - storageHour > 0) {
+//   console.log(hour - storageHour + ' hour ago');
+// } else if (minute - storageMinute > 0) {
+//   console.log(minute - storageMinute + ' minute ago');
+// } else {
+//   console.log('just now');
+// }
