@@ -70,6 +70,7 @@ function appendData(data) {
             <img src="${dataReplies.user.image.png}" alt="user profile picture">
           </picture>
           <p>${dataReplies.user.username}</p>
+          <p>${dataReplies.createdAt}</p>
           <p>@${dataReplies.replyingTo}</p>
           <p>${dataReplies.content}</p>
           <p>${dataReplies.score}</p>
