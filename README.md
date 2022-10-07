@@ -96,6 +96,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 ### Useful resources
 
 (https://medium.com/front-end-weekly/html-picture-tag-in-practice-png-and-webp-formats-5a3fc51b5998)
+(https://www.freecodecamp.org/news/javascript-date-format-how-to-format-a-date-in-js/)
 - [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
 - [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
 
