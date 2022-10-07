@@ -1,6 +1,8 @@
 fetch('data.json')
   .then(res => res.json())
-  .then(data => appendData(data))
+  .then(data => {
+    appendData(data)
+  })
 
 // make sorted array of localStorage key
 let keyArray = []
@@ -63,11 +65,19 @@ function appendData(data) {
 }
 
 // store data to localStorage
-function handleSubmit() {
+async function handleSubmit() {
   // event.preventDefault()
+  const res = await fetch('data.json')
+  const data = await res.json()
+  let userName = data.currentUser.username
   let timeStamp = Date.now()
   const commentObjIn = {
-    content: document.getElementById('commentInput').value
+    content: document.getElementById('commentInput').value,
+    score: 0,
+    user: {
+      'username': userName
+    },
+    replies: []
   }
   const commentJSON = JSON.stringify(commentObjIn)
   localStorage.setItem(timeStamp, commentJSON)
