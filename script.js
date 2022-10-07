@@ -14,6 +14,16 @@ for (let index = 0; index < localStorage.length; index++) {
 }
 console.log('latest:' + latest);
 
+// find the 2nd
+let latest2nd = 0
+for (let index = 0; index < localStorage.length; index++) {
+  const storageKey = localStorage.key(index);
+  if (storageKey > latest2nd && storageKey < latest) {
+    latest2nd = storageKey
+  }
+}
+console.log('2nd: ' + latest2nd);
+
 function appendData(data) {
   let commentsContainer = document.getElementById('comments')
 
