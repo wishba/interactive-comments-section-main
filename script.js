@@ -2,27 +2,17 @@ fetch('data.json')
   .then(res => res.json())
   .then(data => appendData(data))
 
-console.log(localStorage);
-// find latest localStorage key
-let latest = 0
+// make array of localStorage key
+let keyArray = []
 for (let index = 0; index < localStorage.length; index++) {
-  const storageKey = localStorage.key(index);
-  console.log(storageKey);
-  if (storageKey > latest) {
-    latest = storageKey
-  }
+  const storageKey = localStorage.key(index)
+  keyArray.push(storageKey)
 }
-console.log('latest:' + latest);
+console.log(keyArray);
 
-// find the 2nd
-let latest2nd = 0
-for (let index = 0; index < localStorage.length; index++) {
-  const storageKey = localStorage.key(index);
-  if (storageKey > latest2nd && storageKey < latest) {
-    latest2nd = storageKey
-  }
-}
-console.log('2nd: ' + latest2nd);
+// sort the array of localStorage key
+let shortedKeyArray = keyArray.sort().reverse()
+console.log(shortedKeyArray);
 
 function appendData(data) {
   let commentsContainer = document.getElementById('comments')
