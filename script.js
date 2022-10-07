@@ -39,6 +39,11 @@ function appendData(data) {
     // comments
     let comment = document.createElement('div')
     comment.innerHTML = `
+      <picture>
+        <source type="image/webp" srcset="${dataComments.user.image.webp}">
+        <source type="image/png" srcset="${dataComments.user.image.png}">
+        <img src="${dataComments.user.image.png}" alt="user profile picture">
+      </picture>
       <p>${dataComments.user.username}</p>
       <p>${dataComments.createdAt}</p>
       <p>${dataComments.content}</p>
@@ -59,6 +64,11 @@ function appendData(data) {
         let commentReply = document.createElement('div')
         commentReply.className = 'reply'
         commentReply.innerHTML = `
+          <picture>
+            <source type="image/webp" srcset="${dataReplies.user.image.webp}">
+            <source type="image/png" srcset="${dataReplies.user.image.png}">
+            <img src="${dataReplies.user.image.png}" alt="user profile picture">
+          </picture>
           <p>${dataReplies.user.username}</p>
           <p>@${dataReplies.replyingTo}</p>
           <p>${dataReplies.content}</p>
