@@ -13,9 +13,15 @@ for (let index = 0; index < localStorage.length; index++) {
 let shortedKeyArray = keyArray.sort().reverse()
 
 function appendData(data) {
+  // render profile picture in form  
+  let userPicture = document.getElementById('userPicture')
+  userPicture.innerHTML = `
+    <source type="image/webp" srcset="${data.currentUser.image.webp}">
+    <source type="image/png" srcset="${data.currentUser.image.png}">
+    <img src="${data.currentUser.image.png}" alt="user profile picture">
+  `
+
   let commentsContainer = document.getElementById('comments')
-
-
 
   // render sorted localStorage
   for (const iterator of shortedKeyArray) {
