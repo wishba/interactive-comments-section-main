@@ -14,6 +14,13 @@ console.log(keyArray);
 let shortedKeyArray = keyArray.sort().reverse()
 console.log(shortedKeyArray);
 
+// loop through shortedKeyArray, return sorted localStorage
+console.log(localStorage);
+for (const iterator of shortedKeyArray) {
+  console.log(iterator);
+  console.log(localStorage.getItem(iterator));
+}
+
 function appendData(data) {
   let commentsContainer = document.getElementById('comments')
 
