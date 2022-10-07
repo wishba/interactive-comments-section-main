@@ -67,14 +67,23 @@ function appendData(data) {
 // store data to localStorage
 async function handleSubmit() {
   // event.preventDefault()
+
   const res = await fetch('data.json')
   const data = await res.json()
+
   let userName = data.currentUser.username
+  let png = data.currentUser.image.png
+  let webp = data.currentUser.image.webp
+
   let timeStamp = Date.now()
   const commentObjIn = {
     content: document.getElementById('commentInput').value,
     score: 0,
     user: {
+      'image': {
+        'png': png,
+        'webp': webp
+      },
       'username': userName
     },
     replies: []
