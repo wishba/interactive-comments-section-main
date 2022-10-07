@@ -21,8 +21,14 @@ function appendData(data) {
     let StorageObject = JSON.parse(getStorage)
     let localStorageContainer = document.createElement('div')
     localStorageContainer.innerHTML = `
-      <p>${iterator}</p>
+      <picture>
+        <source type="image/webp" srcset="${StorageObject.user.image.webp}">
+        <source type="image/png" srcset="${StorageObject.user.image.png}">
+        <img src="${StorageObject.user.image.png}" alt="user profile picture">
+      </picture>
+      <p>${StorageObject.user.username}</p>
       <p>${StorageObject.content}</p>
+      <p>${StorageObject.score}</p>
     `
     commentsContainer.appendChild(localStorageContainer)
   }
