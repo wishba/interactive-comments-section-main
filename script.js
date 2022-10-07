@@ -2,6 +2,18 @@ fetch('data.json')
   .then(res => res.json())
   .then(data => appendData(data))
 
+console.log(localStorage);
+// find latest localStorage key
+let latest = 0
+for (let index = 0; index < localStorage.length; index++) {
+  const storageKey = localStorage.key(index);
+  console.log(storageKey);
+  if (storageKey > latest) {
+    latest = storageKey
+  }
+}
+console.log('latest:' + latest);
+
 function appendData(data) {
   let commentsContainer = document.getElementById('comments')
 
@@ -60,7 +72,7 @@ function handleSubmit() {
   // event.preventDefault()
   let timeStamp = Date.now()
   const commentObjIn = {
-    comment: document.getElementById('commentInput').value
+    content: document.getElementById('commentInput').value
   }
   const commentJSON = JSON.stringify(commentObjIn)
   localStorage.setItem(timeStamp, commentJSON)
