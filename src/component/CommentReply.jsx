@@ -5,21 +5,25 @@ function CommentReply(props) {
   return (
     <>
       {data.comments[props.commentIndex].replies.map(reply => (
-        <div key={reply.id}>
-          <p>{reply.score}</p>
+        <div key={reply.id} className='comment__container comment__container--reply'>
+          <p className='comment__score'>{reply.score}</p>
 
-          <picture>
-            <source type="image/webp" srcSet={reply.user.image.webp} />
-            <source type="image/png" srcSet={reply.user.image.png} />
-            <img src={reply.user.image.png} alt="user profile picture" />
-          </picture>
-          <p>{reply.user.username}</p>
-          <p>{reply.createdAt}</p>
+          <div className='comment__head'>
+            <picture>
+              <source type="image/webp" srcSet={reply.user.image.webp} />
+              <source type="image/png" srcSet={reply.user.image.png} />
+              <img src={reply.user.image.png} alt="user profile picture" />
+            </picture>
+            <p>{reply.user.username}</p>
+            <p>{reply.createdAt}</p>
+          </div>
 
-          <p>Reply</p>
+          <p className='comment__reply'>Reply</p>
 
-          <p>@{reply.replyingTo}</p>
-          <p>{reply.content}</p>
+          <p className='comment__content'>
+            <span>@{reply.replyingTo}</span>
+            {reply.content}
+          </p>
         </div>
       ))}
     </>

@@ -7,20 +7,22 @@ function CommentReplyParent() {
     <>
       {data.comments.map((comment, index) => (
         <div key={data.comments[index].id}>
-          <div>
-            <p>{comment.score}</p>
+          <div className='comment__container'>
+            <p className='comment__score'>{comment.score}</p>
 
-            <picture>
-              <source type="image/webp" srcSet={comment.user.image.webp} />
-              <source type="image/png" srcSet={comment.user.image.png} />
-              <img src={comment.user.image.png} alt="user profile picture" />
-            </picture>
-            <p>{comment.user.username}</p>
-            <p>{comment.createdAt}</p>
+            <div className='comment__head'>
+              <picture>
+                <source type="image/webp" srcSet={comment.user.image.webp} />
+                <source type="image/png" srcSet={comment.user.image.png} />
+                <img src={comment.user.image.png} alt="user profile picture" />
+              </picture>
+              <p>{comment.user.username}</p>
+              <p>{comment.createdAt}</p>
+            </div>
 
-            <p>Reply</p>
+            <p className='comment__reply'>Reply</p>
 
-            <p>{comment.content}</p>
+            <p className='comment__content'>{comment.content}</p>
           </div>
           <CommentReply commentIndex={index} />
         </div>
