@@ -6,8 +6,10 @@ function CommentReplyParent() {
   return (
     <>
       {data.comments.map((comment, index) => (
-        <div>
-          <p>index: {index}</p>
+        <div key={data.comments[index].id}>
+          <div>
+            <p>index: {index}</p>
+          </div>
           <CommentReply commentIndex={index} />
         </div>
       ))}
