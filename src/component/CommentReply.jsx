@@ -5,8 +5,8 @@ function CommentReply(props) {
   return (
     <>
       {
-        data.comments[props.index].replies.map(reply => (
-          <p key={reply.id}>{reply.id}</p>
+        data.comments[props.commentIndex].replies.map(reply => (
+          <p key={reply.id}>reply id: {reply.id}</p>
         ))
       }
     </>
