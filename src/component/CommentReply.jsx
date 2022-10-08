@@ -6,8 +6,6 @@ function CommentReply(props) {
     <>
       {data.comments[props.commentIndex].replies.map(reply => (
         <div key={reply.id}>
-          {console.log(reply.user.image.png)}
-
           <p>{reply.score}</p>
 
           <picture>
