@@ -1,11 +1,16 @@
 import React from 'react'
 import CommentReply from './CommentReply'
+import data from './data/data.json'
 
 function CommentReplyParent() {
   return (
     <>
-      <CommentReply index='0' />
-      <CommentReply index='1' />
+      {data.comments.map((comment, index) => (
+        <div>
+          <p>index: {index}</p>
+          <CommentReply commentIndex={index} />
+        </div>
+      ))}
     </>
   )
 }
