@@ -1,9 +1,10 @@
+/* comment */
 .comment__container {
   display: grid;
 }
 
 .comment__container--reply {
-  margin-left: 2rem;
+  margin-left: 13px;
 }
 
 .comment__score {
@@ -33,4 +34,16 @@
 
 .comment__content {
   grid-area: 2/1/3/3;
+}
+
+/* comment reply */
+.comment__reply-grid-container {
+  display: flex;
+}
+
+.comment__reply-grid-line {
+  background-color: red;
+  content: '';
+  width: 3px;
+  margin-left: 16px;
 }
