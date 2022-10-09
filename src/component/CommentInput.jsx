@@ -24,10 +24,12 @@ function CommentInput() {
     localStorage.setItem('testKey', commentJSON)
   }
 
-  // log localStorage data
-  let commentStorage = localStorage.getItem('testKey')
-  let commentStorageObject = JSON.parse(commentStorage)
-  console.log(commentStorageObject);
+  function buttonClicked() {
+    // log localStorage data
+    let commentStorage = localStorage.getItem('testKey')
+    let commentStorageObject = JSON.parse(commentStorage)
+    console.log(commentStorageObject);
+  }
 
   return (
     <form
@@ -46,7 +48,11 @@ function CommentInput() {
         cols=""
         rows=""
       ></textarea>
-      <button className='form__button-input' type="submit">SEND</button>
+      <button
+        onClick={buttonClicked}
+        className='form__button-input'
+        type="submit"
+      >SEND</button>
     </form>
   )
 }
