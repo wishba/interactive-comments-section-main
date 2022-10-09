@@ -22,7 +22,6 @@
   margin-bottom: auto;
 }
 
-.comment__head picture,
 .comment__head picture>* {
   height: 32px;
 }
@@ -46,4 +45,25 @@
   content: '';
   width: 3px;
   margin-left: 16px;
+}
+
+/* comment input */
+.form__form {
+  display: grid;
+}
+
+.form__picture {
+  grid-area: 2/1/3/2;
+}
+
+.form__picture>* {
+  height: 32px;
+}
+
+.form__text-input {
+  grid-area: 1/1/2/3;
+}
+
+.form__button-input {
+  grid-area: 2/2/3/3;
 }
