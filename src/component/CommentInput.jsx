@@ -2,8 +2,10 @@ import React from 'react'
 import data from './data/data.json'
 
 function CommentInput() {
+  const handleSubmit = event => event.preventDefault()
+
   return (
-    <form className='form'>
+    <form className='form' onSubmit={handleSubmit}>
       <picture className='form__picture'>
         <source type="image/webp" srcSet={data.currentUser.image.webp} />
         <source type="image/png" srcSet={data.currentUser.image.png} />
