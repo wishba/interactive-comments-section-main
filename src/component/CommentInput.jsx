@@ -3,7 +3,7 @@ import data from './data/data.json'
 
 function CommentInput() {
   return (
-    <form className='form__form'>
+    <form className='form'>
       <picture className='form__picture'>
         <source type="image/webp" srcSet={data.currentUser.image.webp} />
         <source type="image/png" srcSet={data.currentUser.image.png} />

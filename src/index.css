@@ -22,7 +22,7 @@
   margin-bottom: auto;
 }
 
-.comment__head picture>* {
+.comment__picture>* {
   height: 32px;
 }
 
@@ -48,7 +48,7 @@
 }
 
 /* comment input */
-.form__form {
+.form {
   display: grid;
 }
 

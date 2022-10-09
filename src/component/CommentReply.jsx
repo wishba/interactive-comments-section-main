@@ -11,7 +11,7 @@ function CommentReply(props) {
             <p className='comment__score'>{reply.score}</p>
 
             <div className='comment__head'>
-              <picture>
+              <picture className='comment__picture'>
                 <source type="image/webp" srcSet={reply.user.image.webp} />
                 <source type="image/png" srcSet={reply.user.image.png} />
                 <img src={reply.user.image.png} alt="user profile picture" />

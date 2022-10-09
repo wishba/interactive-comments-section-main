@@ -11,7 +11,7 @@ function CommentReplyParent() {
             <p className='comment__score'>{comment.score}</p>
 
             <div className='comment__head'>
-              <picture>
+              <picture className='comment__picture'>
                 <source type="image/webp" srcSet={comment.user.image.webp} />
                 <source type="image/png" srcSet={comment.user.image.png} />
                 <img src={comment.user.image.png} alt="user profile picture" />
