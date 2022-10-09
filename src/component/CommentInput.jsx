@@ -24,6 +24,11 @@ function CommentInput() {
     localStorage.setItem('testKey', commentJSON)
   }
 
+  // log localStorage data
+  let commentStorage = localStorage.getItem('testKey')
+  let commentStorageObject = JSON.parse(commentStorage)
+  console.log(commentStorageObject);
+
   return (
     <form
       className='form'
