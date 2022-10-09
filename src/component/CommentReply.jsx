@@ -5,9 +5,9 @@ function CommentReply(props) {
   return (
     <>
       {data.comments[props.commentIndex].replies.map(reply => (
-        <div className="comment__reply-grid-container">
+        <div key={reply.id} className="comment__reply-grid-container">
           <div className="comment__reply-grid-line"></div>
-          <div key={reply.id} className='comment__container comment__container--reply'>
+          <div className='comment__container comment__container--reply'>
             <p className='comment__score'>{reply.score}</p>
 
             <div className='comment__head'>
