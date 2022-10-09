@@ -1,37 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import data from './data/data.json'
 
 function CommentInput() {
-  // todo -------------------
-  // comment object
-  //  - id
-  //  - content
-  //  - createdAt
-  //  - score
-  //  - user
-  //  - - image
-  //  - - - png
-  //  - - - webp
-  //  - - username
-  //  - replies (later filled with array of localStorage keys)
-  // -------------------
+  const [contentInput, setContentInput] = useState('')
 
-  const [content, setContent] = useState(() => {
-    // getting stored value
-    const saved = localStorage.getItem('keyContent')
-    const initialValue = JSON.parse(saved)
-    return initialValue || ''
-  })
+  function handleSubmit(event) {
+    event.preventDefault()
 
-  useEffect(() => {
-    // storing input content
-    localStorage.setItem("keyContent", JSON.stringify(content))
-  }, [content])
+    //store to localStorage
+    const commentObject = {
+      id: 'tes',
+      content: contentInput,
+      createdAt: 'tes',
+      score: 'tes',
+      user: 'tes',
+      image: 'tes',
+      png: 'tes',
+      webp: 'tes',
+      username: 'tes',
+      replies: 'tes' // (later filled with array of localStorage keys)
+    }
+    const commentJSON = JSON.stringify(commentObject)
+    localStorage.setItem('testKey', commentJSON)
+  }
 
   return (
     <form
       className='form'
-      onSubmit={(event) => event.preventDefault()}
+      onSubmit={handleSubmit}
     >
       <picture className='form__picture'>
         <source type="image/webp" srcSet={data.currentUser.image.webp} />
@@ -39,7 +35,7 @@ function CommentInput() {
         <img src={data.currentUser.image.png} alt="user profile picture" />
       </picture>
       <textarea
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e) => setContentInput(e.target.value)}
         className='form__text-input'
         name=""
         cols=""
