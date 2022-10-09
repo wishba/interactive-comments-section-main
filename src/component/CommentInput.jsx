@@ -2,6 +2,20 @@ import React, { useEffect, useState } from 'react'
 import data from './data/data.json'
 
 function CommentInput() {
+  // todo -------------------
+  // comment object
+  //  - id
+  //  - content
+  //  - createdAt
+  //  - score
+  //  - user
+  //  - - image
+  //  - - - png
+  //  - - - webp
+  //  - - username
+  //  - replies (later filled with array of localStorage keys)
+  // -------------------
+
   const [content, setContent] = useState(() => {
     // getting stored value
     const saved = localStorage.getItem('keyContent')
