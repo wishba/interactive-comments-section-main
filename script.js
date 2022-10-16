@@ -4,10 +4,10 @@ fetch('data.json')
 
 const renderedComment = document.getElementById('comments')
 
+// render data from local JSON
 function appendData(data) {
   const dataComments = data.comments
   for (const comment of dataComments) {
-    console.log(comment)
     let div = document.createElement('div')
     div.innerHTML = `
       <p>${comment.score}</p>
@@ -25,7 +25,6 @@ function appendData(data) {
 
     const dataReply = comment.replies
     for (const reply of dataReply) {
-      console.log(reply)
       let div = document.createElement('div')
       div.innerHTML = `
         <p>${reply.score}</p>
@@ -46,3 +45,25 @@ function appendData(data) {
     }
   }
 }
+
+// store data to local storage
+const storeObject = {
+  id: 'test id',
+  content: 'test content'
+};
+const storageJSON = JSON.stringify(storeObject);
+localStorage.setItem("testKey", storageJSON);
+
+// retrieving data from local storage
+let storageString = localStorage.getItem("testKey");
+let storageValue = JSON.parse(storageString);
+
+// create element
+const storageComment = document.createElement("div");
+storageComment.innerHTML = `
+  <p>${storageValue.id}</p>
+  <p>${storageValue.content}</p>
+`
+
+// render element place it on top
+renderedComment.insertBefore(storageComment, renderedComment.children[0]);
