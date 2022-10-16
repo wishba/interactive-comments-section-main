@@ -3,6 +3,7 @@ fetch('data.json')
   .then((data) => {
     jsonData(data)
     storageData(data)
+    inputData(data)
   })
 
 const renderedComment = document.getElementById('comments')
@@ -32,8 +33,8 @@ function jsonData(data) {
       div.innerHTML = `
         <p>${reply.score}</p>
         <picture>
-          <source srcset="${comment.user.image.webp}" type="image/webp">
-          <img src="${comment.user.image.png}" alt="profile picture">
+          <source srcset="${reply.user.image.webp}" type="image/webp">
+          <img src="${reply.user.image.png}" alt="profile picture">
         </picture>
         <p>${reply.user.username}</p>
         <p>${reply.createdAt}</p>
@@ -94,4 +95,13 @@ function storageData(data) {
 
   // render element place it on top
   renderedComment.insertBefore(storageComment, renderedComment.children[0]);
+}
+
+// form input data
+function inputData(data) {
+  const userPicture = document.getElementById('userPicture')
+  userPicture.innerHTML = `
+    <source srcset="${data.currentUser.image.webp}" type="image/webp">
+    <img src="${data.currentUser.image.png}" alt="profile picture">
+  `
 }
