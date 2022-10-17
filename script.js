@@ -24,6 +24,10 @@ function replyComment(data) {
   return replyForm
 }
 
+function replyCommentToggle() {
+  console.log('reply clicked');
+}
+
 function renderJson(data) {
   const dataComments = data.comments
   for (const comment of dataComments) {
@@ -93,7 +97,7 @@ function renderStorage(data) {
       </picture>
       <p>${storageData.user.username}</p>
       <p>${storageData.createdAt}</p>
-      <p>Reply</p>
+      <a href="#" onclick="replyCommentToggle()">Reply</a>
       <p>${storageData.content}</p>
       ${replyComment(data)}
       <hr>
