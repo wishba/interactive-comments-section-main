@@ -27,8 +27,8 @@ function renderJson(data) {
     `
     commentContainer.appendChild(div)
 
-    const dataReply = comment.replies
-    for (const reply of dataReply) {
+    const commentReply = comment.replies
+    for (const reply of commentReply) {
       let div = document.createElement('div')
       div.innerHTML = `
         <p>${reply.score}</p>
@@ -61,24 +61,22 @@ function sortKey() {
 }
 
 function renderStorage() {
-
   const storageCommentContainer = document.createElement("div");
 
-  for (const storageKey of sortKey()) {
-    let storageString = localStorage.getItem(storageKey);
-    let storageValue = JSON.parse(storageString);
-
+  for (const key of sortKey()) {
+    let getStorage = localStorage.getItem(key);
+    let storageData = JSON.parse(getStorage);
     let storageComment = document.createElement("div");
     storageComment.innerHTML = `
-      <p>${storageValue.score}</p>
+      <p>${storageData.score}</p>
       <picture>
-        <source srcset="${storageValue.user.image.webp}" type="image/webp">
-        <img src="${storageValue.user.image.png}" alt="profile picture">
+        <source srcset="${storageData.user.image.webp}" type="image/webp">
+        <img src="${storageData.user.image.png}" alt="profile picture">
       </picture>
-      <p>${storageValue.user.username}</p>
-      <p>${storageValue.createdAt}</p>
+      <p>${storageData.user.username}</p>
+      <p>${storageData.createdAt}</p>
       <p>Reply</p>
-      <p>${storageValue.content}</p>
+      <p>${storageData.content}</p>
       <hr>
     `
     storageCommentContainer.appendChild(storageComment)
@@ -122,23 +120,21 @@ function submitLocal(data) {
     const formJson = JSON.stringify(formInput);
     localStorage.setItem(timeStamp, formJson);
 
-    let getData = localStorage.getItem(timeStamp);
-    let objectData = JSON.parse(getData);
-
+    let getStorage = localStorage.getItem(timeStamp);
+    let storageData = JSON.parse(getStorage);
     const storedComment = document.createElement("div");
     storedComment.innerHTML = `
-    <p>${objectData.score}</p>
+    <p>${storageData.score}</p>
       <picture>
-        <source srcset="${objectData.user.image.webp}" type="image/webp">
-        <img src="${objectData.user.image.png}" alt="profile picture">
+        <source srcset="${storageData.user.image.webp}" type="image/webp">
+        <img src="${storageData.user.image.png}" alt="profile picture">
       </picture>
-      <p>${objectData.user.username}</p>
-      <p>${objectData.createdAt}</p>
+      <p>${storageData.user.username}</p>
+      <p>${storageData.createdAt}</p>
       <p>Reply</p>
-      <p>${objectData.content}</p>
+      <p>${storageData.content}</p>
       <hr>
     `
-
     commentContainer.insertBefore(storedComment, commentContainer.children[0]);
   }
 }
