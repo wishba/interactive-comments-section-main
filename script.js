@@ -3,7 +3,8 @@ fetch('data.json')
   .then((data) => {
     jsonData(data)
     storageData(data)
-    inputData(data)
+    formData(data)
+    submitData(data)
   })
 
 const renderedComment = document.getElementById('comments')
@@ -97,11 +98,20 @@ function storageData(data) {
   renderedComment.insertBefore(storageComment, renderedComment.children[0]);
 }
 
-// form input data
-function inputData(data) {
+// form section
+function formData(data) {
   const userPicture = document.getElementById('userPicture')
   userPicture.innerHTML = `
     <source srcset="${data.currentUser.image.webp}" type="image/webp">
     <img src="${data.currentUser.image.png}" alt="profile picture">
   `
+}
+
+// submit data
+function submitData(data) {
+  document.getElementById('form').onsubmit = function (e) {
+    console.log('submitted');
+    console.log(data);
+    e.preventDefault()
+  }
 }
