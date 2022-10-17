@@ -53,6 +53,14 @@ function jsonData(data) {
   }
 }
 
+// sorted array of localStorage key
+let keyArray = []
+for (let index = 0; index < localStorage.length; index++) {
+  const storageKey = localStorage.key(index)
+  keyArray.push(storageKey)
+}
+let shortedKeyArray = keyArray.sort().reverse()
+
 // render from local storage
 function storageData(data) {
   const imagePNG = data.currentUser.image.png
@@ -78,26 +86,28 @@ function storageData(data) {
   localStorage.setItem("testKey", storageJSON);
 
   // retrieving data from local storage
-  let storageString = localStorage.getItem("testKey");
-  let storageValue = JSON.parse(storageString);
+  for (const storageKey of shortedKeyArray) {
+    let storageString = localStorage.getItem(storageKey);
+    let storageValue = JSON.parse(storageString);
 
-  // create element
-  const storageComment = document.createElement("div");
-  storageComment.innerHTML = `
-    <p>${storageValue.score}</p>
-    <picture>
-      <source srcset="${storageValue.user.image.webp}" type="image/webp">
-      <img src="${storageValue.user.image.png}" alt="profile picture">
-    </picture>
-    <p>${storageValue.user.username}</p>
-    <p>${storageValue.createdAt}</p>
-    <p>Reply</p>
-    <p>${storageValue.content}</p>
-    <hr>
-  `
+    // create element
+    const storageComment = document.createElement("div");
+    storageComment.innerHTML = `
+      <p>${storageValue.score}</p>
+      <picture>
+        <source srcset="${storageValue.user.image.webp}" type="image/webp">
+        <img src="${storageValue.user.image.png}" alt="profile picture">
+      </picture>
+      <p>${storageValue.user.username}</p>
+      <p>${storageValue.createdAt}</p>
+      <p>Reply</p>
+      <p>${storageValue.content}</p>
+      <hr>
+    `
 
-  // render element place it on top
-  commentContainer.insertBefore(storageComment, commentContainer.children[0]);
+    // render element place it on top
+    commentContainer.insertBefore(storageComment, commentContainer.children[0]);
+  }
 }
 
 // form
