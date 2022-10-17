@@ -42,7 +42,6 @@ function renderJson(data) {
       <p>${comment.createdAt}</p>
       <p>Reply</p>
       <p>${comment.content}</p>
-      ${replyComment(data)}
       <hr>
     `
     commentContainer.appendChild(div)
@@ -63,7 +62,6 @@ function renderJson(data) {
           <span>@${reply.replyingTo}</span>
           ${reply.content}
         </p>
-        ${replyComment(data)}
         <hr>
       `
       commentContainer.appendChild(div)
@@ -85,10 +83,10 @@ function renderStorage(data) {
   const storageCommentContainer = document.createElement("div");
 
   for (const key of sortKey()) {
-    // console.log(key);
     let getStorage = localStorage.getItem(key);
     let storageData = JSON.parse(getStorage);
     let storageComment = document.createElement("div");
+    console.log(storageData.user.image);
     storageComment.innerHTML = `
       <p>${storageData.score}</p>
       <picture>
@@ -99,7 +97,14 @@ function renderStorage(data) {
       <p>${storageData.createdAt}</p>
       <a href="#" onclick="replyCommentToggle()">Reply</a>
       <p>${storageData.content}</p>
-      ${replyComment(data)}
+      <form>
+        <picture>
+          <source srcset="${storageData.user.image.webp}" type="image/webp">
+          <img src="${storageData.user.image.png}" alt="profile picture">
+        </picture>
+        <textarea name="" cols="30" rows="10">${storageData.content}</textarea>
+        <button type="submit">REPLY</button>
+      </form>
       <hr>
     `
     storageCommentContainer.appendChild(storageComment)
