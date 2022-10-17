@@ -7,7 +7,7 @@ fetch('data.json')
     submitData(data)
   })
 
-const renderedComment = document.getElementById('comments')
+const commentContainer = document.getElementById('comments')
 
 // render data from local JSON
 function jsonData(data) {
@@ -27,7 +27,7 @@ function jsonData(data) {
       <p>${comment.content}</p>
       <hr>
     `
-    renderedComment.appendChild(div)
+    commentContainer.appendChild(div)
 
     // render replies
     const dataReply = comment.replies
@@ -48,7 +48,7 @@ function jsonData(data) {
         </p>
         <hr>
       `
-      renderedComment.appendChild(div)
+      commentContainer.appendChild(div)
     }
   }
 }
@@ -97,7 +97,7 @@ function storageData(data) {
   `
 
   // render element place it on top
-  renderedComment.insertBefore(storageComment, renderedComment.children[0]);
+  commentContainer.insertBefore(storageComment, commentContainer.children[0]);
 }
 
 // form
@@ -135,5 +135,28 @@ function submitData(data) {
     };
     const formJson = JSON.stringify(formInput);
     localStorage.setItem("testJSON", formJson);
+
+    // Retrieving data:
+    let getData = localStorage.getItem("testJSON");
+    let objectData = JSON.parse(getData);
+    console.log(objectData);
+
+    // create element
+    const storedComment = document.createElement("div");
+    storedComment.innerHTML = `
+    <p>${objectData.score}</p>
+      <picture>
+        <source srcset="${objectData.user.image.webp}" type="image/webp">
+        <img src="${objectData.user.image.png}" alt="profile picture">
+      </picture>
+      <p>${objectData.user.username}</p>
+      <p>${objectData.createdAt}</p>
+      <p>Reply</p>
+      <p>${objectData.content}</p>
+      <hr>
+    `
+
+    // render element place it on top
+    commentContainer.insertBefore(storedComment, commentContainer.children[0]);
   }
 }
