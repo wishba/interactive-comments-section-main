@@ -1,17 +1,15 @@
 fetch('data.json')
   .then((response) => response.json())
   .then((data) => {
-    jsonData(data)
-    storageData()
-    formData(data)
-    submitData(data)
+    renderJson(data)
+    renderStorage()
+    formSection(data)
+    submitLocal(data)
   })
 
 const commentContainer = document.getElementById('comments')
 
-// render data from local JSON
-function jsonData(data) {
-  // render comments
+function renderJson(data) {
   const dataComments = data.comments
   for (const comment of dataComments) {
     let div = document.createElement('div')
@@ -29,7 +27,6 @@ function jsonData(data) {
     `
     commentContainer.appendChild(div)
 
-    // render replies
     const dataReply = comment.replies
     for (const reply of dataReply) {
       let div = document.createElement('div')
@@ -63,17 +60,14 @@ function sortKey() {
   return shortedKeyArray
 }
 
-// render from local storage
-function storageData() {
+function renderStorage() {
 
   const storageCommentContainer = document.createElement("div");
 
-  // retrieving data from local storage
   for (const storageKey of sortKey()) {
     let storageString = localStorage.getItem(storageKey);
     let storageValue = JSON.parse(storageString);
 
-    // create element
     let storageComment = document.createElement("div");
     storageComment.innerHTML = `
       <p>${storageValue.score}</p>
@@ -90,12 +84,10 @@ function storageData() {
     storageCommentContainer.appendChild(storageComment)
   }
 
-  // render element place it on top
   commentContainer.insertBefore(storageCommentContainer, commentContainer.children[0]);
 }
 
-// form
-function formData(data) {
+function formSection(data) {
   const userPicture = document.getElementById('userPicture')
   userPicture.innerHTML = `
     <source srcset="${data.currentUser.image.webp}" type="image/webp">
@@ -103,14 +95,12 @@ function formData(data) {
   `
 }
 
-// form submit data
-function submitData(data) {
+function submitLocal(data) {
   document.getElementById('form').onsubmit = function (e) {
     e.preventDefault()
 
     let timeStamp = Date.now()
 
-    // store data to local storage
     let inputContent = document.getElementById('inputContent').value
     let inputPng = data.currentUser.image.png
     let inputWebp = data.currentUser.image.webp
@@ -135,7 +125,6 @@ function submitData(data) {
     let getData = localStorage.getItem(timeStamp);
     let objectData = JSON.parse(getData);
 
-    // create element
     const storedComment = document.createElement("div");
     storedComment.innerHTML = `
     <p>${objectData.score}</p>
@@ -150,7 +139,6 @@ function submitData(data) {
       <hr>
     `
 
-    // render element place it on top
     commentContainer.insertBefore(storedComment, commentContainer.children[0]);
   }
 }
