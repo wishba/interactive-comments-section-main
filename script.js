@@ -63,27 +63,29 @@ let shortedKeyArray = keyArray.sort().reverse()
 
 // render from local storage
 function storageData(data) {
-  const imagePNG = data.currentUser.image.png
-  const imageWebp = data.currentUser.image.webp
-  const name = data.currentUser.username
+  // const imagePNG = data.currentUser.image.png
+  // const imageWebp = data.currentUser.image.webp
+  // const name = data.currentUser.username
 
   // store data to local storage
-  const storeObject = {
-    id: 'test id',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    createdAt: 'some time ago',
-    score: 0,
-    user: {
-      image: {
-        png: imagePNG,
-        webp: imageWebp
-      },
-      username: name
-    },
-    replies: []
-  };
-  const storageJSON = JSON.stringify(storeObject);
-  localStorage.setItem("testKey", storageJSON);
+  // const storeObject = {
+  //   id: 'test id',
+  //   content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  //   createdAt: 'some time ago',
+  //   score: 0,
+  //   user: {
+  //     image: {
+  //       png: imagePNG,
+  //       webp: imageWebp
+  //     },
+  //     username: name
+  //   },
+  //   replies: []
+  // };
+  // const storageJSON = JSON.stringify(storeObject);
+  // localStorage.setItem("testKey", storageJSON);
+
+  const storageCommentContainer = document.createElement("div");
 
   // retrieving data from local storage
   for (const storageKey of shortedKeyArray) {
@@ -91,7 +93,7 @@ function storageData(data) {
     let storageValue = JSON.parse(storageString);
 
     // create element
-    const storageComment = document.createElement("div");
+    let storageComment = document.createElement("div");
     storageComment.innerHTML = `
       <p>${storageValue.score}</p>
       <picture>
@@ -104,10 +106,11 @@ function storageData(data) {
       <p>${storageValue.content}</p>
       <hr>
     `
-
-    // render element place it on top
-    commentContainer.insertBefore(storageComment, commentContainer.children[0]);
+    storageCommentContainer.appendChild(storageComment)
   }
+
+  // render element place it on top
+  commentContainer.insertBefore(storageCommentContainer, commentContainer.children[0]);
 }
 
 // form
@@ -119,10 +122,18 @@ function formData(data) {
   `
 }
 
+// timestamp
+// let timeStamp = Date.now()
+// console.log(timeStamp);
+
 // form submit data
 function submitData(data) {
   document.getElementById('form').onsubmit = function (e) {
     e.preventDefault()
+
+
+    let timeStamp = Date.now()
+    // let key = timeStamp
 
     // store data to local storage
     let inputContent = document.getElementById('inputContent').value
@@ -144,12 +155,17 @@ function submitData(data) {
       replies: []
     };
     const formJson = JSON.stringify(formInput);
-    localStorage.setItem("testJSON", formJson);
+    localStorage.setItem(timeStamp, formJson);
+    // localStorage.setItem(key, formJson);
+    // localStorage.setItem("testJSON", formJson);
 
     // Retrieving data:
-    let getData = localStorage.getItem("testJSON");
+    // console.log(timeStamp);
+    let getData = localStorage.getItem(timeStamp);
+    // let getData = localStorage.getItem(key);
+    // let getData = localStorage.getItem("testJSON");
     let objectData = JSON.parse(getData);
-    console.log(objectData);
+    // console.log(objectData);
 
     // create element
     const storedComment = document.createElement("div");
