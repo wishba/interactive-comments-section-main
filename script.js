@@ -2,12 +2,27 @@ fetch('data.json')
   .then((response) => response.json())
   .then((data) => {
     renderJson(data)
-    renderStorage()
+    renderStorage(data)
+    replyComment(data)
     formSection(data)
     submitLocal(data)
   })
 
 const commentContainer = document.getElementById('comments')
+
+function replyComment(data) {
+  const replyForm = `
+    <form action="">
+    <picture>
+      <source srcset="${data.currentUser.image.webp}" type="image/webp">
+      <img src="${data.currentUser.image.png}" alt="profile picture">
+    </picture>
+      <textarea name="" cols="30" rows="10"></textarea>
+      <button type="submit">REPLY</button>
+    </form>
+  `
+  return replyForm
+}
 
 function renderJson(data) {
   const dataComments = data.comments
@@ -23,6 +38,7 @@ function renderJson(data) {
       <p>${comment.createdAt}</p>
       <p>Reply</p>
       <p>${comment.content}</p>
+      ${replyComment(data)}
       <hr>
     `
     commentContainer.appendChild(div)
@@ -43,6 +59,7 @@ function renderJson(data) {
           <span>@${reply.replyingTo}</span>
           ${reply.content}
         </p>
+        ${replyComment(data)}
         <hr>
       `
       commentContainer.appendChild(div)
@@ -60,10 +77,11 @@ function sortKey() {
   return shortedKeyArray
 }
 
-function renderStorage() {
+function renderStorage(data) {
   const storageCommentContainer = document.createElement("div");
 
   for (const key of sortKey()) {
+    // console.log(key);
     let getStorage = localStorage.getItem(key);
     let storageData = JSON.parse(getStorage);
     let storageComment = document.createElement("div");
@@ -77,6 +95,7 @@ function renderStorage() {
       <p>${storageData.createdAt}</p>
       <p>Reply</p>
       <p>${storageData.content}</p>
+      ${replyComment(data)}
       <hr>
     `
     storageCommentContainer.appendChild(storageComment)
