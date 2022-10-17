@@ -11,6 +11,7 @@ const renderedComment = document.getElementById('comments')
 
 // render data from local JSON
 function jsonData(data) {
+  // render comments
   const dataComments = data.comments
   for (const comment of dataComments) {
     let div = document.createElement('div')
@@ -28,6 +29,7 @@ function jsonData(data) {
     `
     renderedComment.appendChild(div)
 
+    // render replies
     const dataReply = comment.replies
     for (const reply of dataReply) {
       let div = document.createElement('div')
@@ -98,7 +100,7 @@ function storageData(data) {
   renderedComment.insertBefore(storageComment, renderedComment.children[0]);
 }
 
-// form section
+// form
 function formData(data) {
   const userPicture = document.getElementById('userPicture')
   userPicture.innerHTML = `
@@ -107,11 +109,31 @@ function formData(data) {
   `
 }
 
-// submit data
+// form submit data
 function submitData(data) {
   document.getElementById('form').onsubmit = function (e) {
-    console.log('submitted');
-    console.log(data);
     e.preventDefault()
+
+    // store data to local storage
+    let inputContent = document.getElementById('inputContent').value
+    let inputPng = data.currentUser.image.png
+    let inputWebp = data.currentUser.image.webp
+    let inputUsername = data.currentUser.username
+    const formInput = {
+      id: 'test id',
+      content: inputContent,
+      createdAt: 'some time ago',
+      score: 0,
+      user: {
+        image: {
+          png: inputPng,
+          webp: inputWebp
+        },
+        username: inputUsername
+      },
+      replies: []
+    };
+    const formJson = JSON.stringify(formInput);
+    localStorage.setItem("testJSON", formJson);
   }
 }
