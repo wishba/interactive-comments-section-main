@@ -9,6 +9,7 @@ const commentContainer = document.getElementById('commentContainer')
 function appendData(data) {
   const comment = document.createElement('div')
   comment.innerHTML = `
+    <p>${data.comments[0].user.username}</p>
     <p>${data.comments[0].content}</p>
   `
 
@@ -17,7 +18,13 @@ function appendData(data) {
   const textArea = document.createElement('textarea')
   textArea.setAttribute('cols', '30')
   textArea.setAttribute('rows', '10')
-  textArea.innerText = data.comments[0].content
+  let text = localStorage.getItem("testJSON");
+  let obj = JSON.parse(text);
+  if (obj === null) {
+    textArea.innerText = data.comments[0].content
+  } else {
+    textArea.innerText = obj.content
+  }
   form.appendChild(textArea)
 
   const replyButton = document.createElement('button')
@@ -29,7 +36,6 @@ function appendData(data) {
 
   form.addEventListener('submit', function (event) {
     event.preventDefault()
-
     const myObj = {
       content: textArea.value
     };
