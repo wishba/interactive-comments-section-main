@@ -7,23 +7,35 @@ fetch('data.json')
 const commentContainer = document.getElementById('commentContainer')
 
 function appendData(data) {
-  // comment
-  const div = document.createElement('div')
-  div.innerHTML = `
+  const comment = document.createElement('div')
+  comment.innerHTML = `
     <p>${data.comments[0].content}</p>
   `
 
-  // reply form
   const form = document.createElement('form')
+
+  const textArea = document.createElement('textarea')
+  textArea.setAttribute('cols', '30')
+  textArea.setAttribute('rows', '10')
+  textArea.innerText = data.comments[0].content
+  form.appendChild(textArea)
+
+  const replyButton = document.createElement('button')
+  replyButton.setAttribute('type', 'submit')
+  replyButton.innerText = 'REPLY'
+  form.appendChild(replyButton)
+
+  comment.appendChild(form)
+
   form.addEventListener('submit', function (event) {
     event.preventDefault()
-  })
-  form.innerHTML = `
-    <textarea name="" id="" cols="30" rows="10">${data.comments[0].content}</textarea>
-    <button type="submit">REPLY</button>
-  `
-  div.appendChild(form)
 
-  // append
-  commentContainer.appendChild(div)
+    const myObj = {
+      content: textArea.value
+    };
+    const myJSON = JSON.stringify(myObj);
+    localStorage.setItem("testJSON", myJSON);
+  })
+
+  commentContainer.appendChild(comment)
 }
