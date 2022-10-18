@@ -63,6 +63,66 @@ function appendData(data) {
       form.style.display = 'none'
     })
 
+    for (const dataReply of dataComment.replies) {
+      const reply = document.createElement('div')
+
+      const key = 'key' + dataReply.id
+
+      let getStorage = localStorage.getItem(key)
+      let storage = JSON.parse(getStorage)
+
+      const replyContent = document.createElement('p')
+      replyContent.innerText = dataReply.content
+      if (storage === null) {
+        replyContent.innerText = dataReply.content
+      } else {
+        replyContent.innerText = storage.content
+      }
+      reply.appendChild(replyContent)
+
+      const replyToggle = document.createElement('a')
+      replyToggle.setAttribute('href', 'javascript:void(0)')
+      replyToggle.innerText = 'Reply'
+      reply.appendChild(replyToggle)
+
+      const form = document.createElement('form')
+      form.style.display = 'none'
+      replyToggle.addEventListener('click', () => form.style.display = 'block')
+
+      const textArea = document.createElement('textarea')
+      textArea.setAttribute('cols', '30')
+      textArea.setAttribute('rows', '10')
+      if (storage === null) {
+        textArea.innerText = dataReply.content
+      } else {
+        textArea.innerText = storage.content
+      }
+      form.appendChild(textArea)
+
+      const replyButton = document.createElement('button')
+      replyButton.setAttribute('type', 'submit')
+      replyButton.innerText = 'REPLY'
+      form.appendChild(replyButton)
+
+      reply.appendChild(form)
+
+      comment.appendChild(reply)
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault()
+
+        const inputObj = {
+          content: textArea.value
+        }
+        const input = JSON.stringify(inputObj)
+        localStorage.setItem(key, input)
+
+        replyContent.innerText = textArea.value
+
+        form.style.display = 'none'
+      })
+    }
+
     commentContainer.appendChild(comment)
   }
 }
