@@ -26,6 +26,10 @@ function appendData(data) {
   comment.appendChild(replyToggle)
 
   const form = document.createElement('form')
+  form.style.display = 'none'
+  replyToggle.addEventListener('click', function () {
+    form.style.display = 'block'
+  })
 
   const textArea = document.createElement('textarea')
   textArea.setAttribute('cols', '30')
@@ -54,6 +58,8 @@ function appendData(data) {
     localStorage.setItem("testJSON", input);
 
     commentContent.innerText = textArea.value
+
+    form.style.display = 'none'
   })
 
   commentContainer.appendChild(comment)
