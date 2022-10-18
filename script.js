@@ -8,22 +8,32 @@ const commentContainer = document.getElementById('commentContainer')
 
 function appendData(data) {
   const comment = document.createElement('div')
-  comment.innerHTML = `
-    <p>${data.comments[0].user.username}</p>
-    <p>${data.comments[0].content}</p>
-  `
+
+  let getStorage = localStorage.getItem("testJSON");
+  let storage = JSON.parse(getStorage);
+
+  const commentContent = document.createElement('p')
+  if (storage === null) {
+    commentContent.innerText = data.comments[0].content
+  } else {
+    commentContent.innerText = storage.content
+  }
+  comment.appendChild(commentContent)
+
+  const replyToggle = document.createElement('a')
+  replyToggle.setAttribute('href', 'javascript:void(0)')
+  replyToggle.innerText = 'Reply'
+  comment.appendChild(replyToggle)
 
   const form = document.createElement('form')
 
   const textArea = document.createElement('textarea')
   textArea.setAttribute('cols', '30')
   textArea.setAttribute('rows', '10')
-  let text = localStorage.getItem("testJSON");
-  let obj = JSON.parse(text);
-  if (obj === null) {
+  if (storage === null) {
     textArea.innerText = data.comments[0].content
   } else {
-    textArea.innerText = obj.content
+    textArea.innerText = storage.content
   }
   form.appendChild(textArea)
 
@@ -36,11 +46,14 @@ function appendData(data) {
 
   form.addEventListener('submit', function (event) {
     event.preventDefault()
-    const myObj = {
+
+    const inputObj = {
       content: textArea.value
     };
-    const myJSON = JSON.stringify(myObj);
-    localStorage.setItem("testJSON", myJSON);
+    const input = JSON.stringify(inputObj);
+    localStorage.setItem("testJSON", input);
+
+    commentContent.innerText = textArea.value
   })
 
   commentContainer.appendChild(comment)
