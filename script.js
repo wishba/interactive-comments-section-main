@@ -6,19 +6,24 @@ fetch('data.json')
 
 const commentContainer = document.getElementById('commentContainer')
 
-function handleReply(e) {
-  e.preventDefault()
-}
-
 function appendData(data) {
+  // comment
   const div = document.createElement('div')
-  const replyInputTxt = data.comments[0].content
   div.innerHTML = `
     <p>${data.comments[0].content}</p>
-    <form onsubmit="handleReply(event)">
-      <textarea name="" id="" cols="30" rows="10">${replyInputTxt}</textarea>
-      <button type="submit">REPLY</button>
-    </form>
   `
+
+  // reply form
+  const form = document.createElement('form')
+  form.addEventListener('submit', function (event) {
+    event.preventDefault()
+  })
+  form.innerHTML = `
+    <textarea name="" id="" cols="30" rows="10">${data.comments[0].content}</textarea>
+    <button type="submit">REPLY</button>
+  `
+  div.appendChild(form)
+
+  // append
   commentContainer.appendChild(div)
 }
