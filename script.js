@@ -79,6 +79,22 @@ function sortKey() {
   return shortedKeyArray
 }
 
+// document.getElementById('form').onsubmit = function (e) {
+// e.preventDefault()
+
+// function sendReply(e) {
+// e.preventDefault();
+
+// console.log('tes');
+// }
+
+function sendReply(e) {
+  e.preventDefault()
+  let tes = 'tes'
+  console.log(tes);
+  return tes
+}
+
 function renderStorage(data) {
   const storageCommentContainer = document.createElement("div");
 
@@ -86,7 +102,6 @@ function renderStorage(data) {
     let getStorage = localStorage.getItem(key);
     let storageData = JSON.parse(getStorage);
     let storageComment = document.createElement("div");
-    console.log(storageData.user.image);
     storageComment.innerHTML = `
       <p>${storageData.score}</p>
       <picture>
@@ -97,7 +112,7 @@ function renderStorage(data) {
       <p>${storageData.createdAt}</p>
       <a href="#" onclick="replyCommentToggle()">Reply</a>
       <p>${storageData.content}</p>
-      <form>
+      <form onsubmit="sendReply(e)">
         <picture>
           <source srcset="${storageData.user.image.webp}" type="image/webp">
           <img src="${storageData.user.image.png}" alt="profile picture">
