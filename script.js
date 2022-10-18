@@ -1,12 +1,12 @@
 fetch('data.json')
   .then((response) => response.json())
   .then((data) => {
-    appendData(data)
+    renderComments(data)
   })
 
 const commentContainer = document.getElementById('commentContainer')
 
-function appendData(data) {
+function renderComments(data) {
   const comment = document.createElement('div')
 
   let getStorage = localStorage.getItem("testJSON");
@@ -27,9 +27,7 @@ function appendData(data) {
 
   const form = document.createElement('form')
   form.style.display = 'none'
-  replyToggle.addEventListener('click', function () {
-    form.style.display = 'block'
-  })
+  replyToggle.addEventListener('click', () => form.style.display = 'block')
 
   const textArea = document.createElement('textarea')
   textArea.setAttribute('cols', '30')
@@ -48,7 +46,7 @@ function appendData(data) {
 
   comment.appendChild(form)
 
-  form.addEventListener('submit', function (event) {
+  form.addEventListener('submit', (event) => {
     event.preventDefault()
 
     const inputObj = {
