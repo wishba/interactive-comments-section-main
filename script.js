@@ -6,12 +6,12 @@
 //    createdAt: someTimeAgo,
 //    score: {
 //      totalScore,
-//      whoGiveScore: [username, ...]
+//      scoreBy: [username, ...]
 //    },
 //    user: {
 //      image: {
 //        png,
-//        webp,
+//        webp
 //      },
 //    username
 //    },
@@ -38,16 +38,55 @@
 
 fetch('data.json')
   .then((response) => response.json())
-  .then((data) => appendData(data))
+  .then((data) => {
+    storeJSON(data)
+  })
 
-function appendData(data) {
-  const comment = data.comments
-  for (const commentList of comment) {
-    console.log(commentList);
+function storeJSON(data) {
+  for (const dataComment of data.comments) {
+    let replyArray = []
+    for (const dataReply of dataComment.replies) {
+      replyArray.push('key' + dataReply.id)
 
-    const reply = commentList.replies
-    for (const replyList of reply) {
-      console.log(replyList);
+      const keyIdFromJSON = 'key' + dataReply.id
+      const replyObj = {
+        content: dataReply.content,
+        createdAt: dataReply.createdAt,
+        score: {
+          totalScore: dataReply.score,
+          scoreBy: []
+        },
+        user: {
+          image: {
+            png: dataReply.user.image.png,
+            webp: dataReply.user.image.webp
+          }
+        },
+        username: dataReply.user.username,
+        replies: []
+      }
+      const replyString = JSON.stringify(replyObj)
+      localStorage.setItem(keyIdFromJSON, replyString)
     }
+
+    const keyIdFromJSON = 'key' + dataComment.id
+    const commentObj = {
+      content: dataComment.content,
+      createdAt: dataComment.createdAt,
+      score: {
+        totalScore: dataComment.score,
+        scoreBy: []
+      },
+      user: {
+        image: {
+          png: dataComment.user.image.png,
+          webp: dataComment.user.image.webp
+        }
+      },
+      username: dataComment.user.username,
+      replies: replyArray
+    }
+    const commentString = JSON.stringify(commentObj)
+    localStorage.setItem(keyIdFromJSON, commentString)
   }
 }
