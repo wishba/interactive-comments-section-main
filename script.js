@@ -39,54 +39,101 @@
 fetch('data.json')
   .then((response) => response.json())
   .then((data) => {
-    storeJSON(data)
+    storeComment(data)
+    storeReply(data)
   })
 
-function storeJSON(data) {
-  for (const dataComment of data.comments) {
+function keyArray() {
+  let storageKey = []
+  for (let i = 0; i < localStorage.length; i++) {
+    const element = localStorage.key(i)
+    storageKey.push(element)
+  }
+  return storageKey
+}
+
+function storeComment(data) {
+  for (const comment of data.comments) {
     let replyArray = []
-    for (const dataReply of dataComment.replies) {
-      replyArray.push('key' + dataReply.id)
-
-      const keyIdFromJSON = 'key' + dataReply.id
-      const replyObj = {
-        content: dataReply.content,
-        createdAt: dataReply.createdAt,
-        score: {
-          totalScore: dataReply.score,
-          scoreBy: []
-        },
-        user: {
-          image: {
-            png: dataReply.user.image.png,
-            webp: dataReply.user.image.webp
-          }
-        },
-        username: dataReply.user.username,
-        replies: []
-      }
-      const replyString = JSON.stringify(replyObj)
-      localStorage.setItem(keyIdFromJSON, replyString)
+    for (const reply of comment.replies) {
+      const replyKey = 'key' + reply.id
+      replyArray.push(replyKey)
     }
-
-    const keyIdFromJSON = 'key' + dataComment.id
+    const commentKey = 'key' + comment.id
     const commentObj = {
-      content: dataComment.content,
-      createdAt: dataComment.createdAt,
+      content: comment.content,
+      createdAt: comment.createdAt,
       score: {
-        totalScore: dataComment.score,
+        totalScore: comment.score,
         scoreBy: []
       },
       user: {
         image: {
-          png: dataComment.user.image.png,
-          webp: dataComment.user.image.webp
+          png: comment.user.image.png,
+          webp: comment.user.image.webp
         }
       },
-      username: dataComment.user.username,
+      username: comment.user.username,
       replies: replyArray
     }
-    const commentString = JSON.stringify(commentObj)
-    localStorage.setItem(keyIdFromJSON, commentString)
+
+    if (!keyArray().includes(commentKey)) {
+      const commentJSON = JSON.stringify(commentObj);
+      localStorage.setItem(commentKey, commentJSON);
+    }
   }
 }
+
+function storeReply(data) {
+  for (const comment of data.comments) {
+    for (const reply of comment.replies) {
+      const replyKey = 'key' + reply.id
+      const replyObj = {
+        content: reply.content,
+        createdAt: reply.createdAt,
+        score: {
+          totalScore: reply.score,
+          scoreBy: []
+        },
+        user: {
+          image: {
+            png: reply.user.image.png,
+            webp: reply.user.image.webp
+          }
+        },
+        username: reply.user.username,
+        replies: []
+      }
+
+      if (!keyArray().includes(replyKey)) {
+        const replyJSON = JSON.stringify(replyObj);
+        localStorage.setItem(replyKey, replyJSON);
+      }
+    }
+  }
+}
+
+const formSend = document.getElementById('formSend')
+formSend.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  const keyIdFromJSON = 'key5'
+  const commentObj = {
+    content: 'content',
+    createdAt: 'createdAt',
+    score: {
+      totalScore: 'score',
+      scoreBy: []
+    },
+    user: {
+      image: {
+        png: 'image.png',
+        webp: 'image.webp'
+      }
+    },
+    username: 'username',
+    replies: 'replyArray'
+  }
+  const commentString = JSON.stringify(commentObj)
+  localStorage.setItem(keyIdFromJSON, commentString)
+})
